@@ -33,7 +33,7 @@ class StatePath(type(pathlib.Path())):
         Returns:
         ----
         (str): A file path reprsented as a string.
-        """        
+        """
 
         return self.credentials_file.absolute()
 
@@ -95,7 +95,7 @@ class StatePath(type(pathlib.Path())):
 
         Returns:
         ----
-        {pathlib.PurePath} -- A PurePath object pointing to the `.td_python_library` 
+        {pathlib.PurePath} -- A PurePath object pointing to the `.td_python_library`
             directory.
         """
         self.home_directory
@@ -262,7 +262,7 @@ class StatePath(type(pathlib.Path())):
         Arguments:
         ----
         file_path (pathlib.Path): [description]
-        """        
+        """
 
         file_path.unlink()
 
@@ -278,7 +278,7 @@ class StatePath(type(pathlib.Path())):
         Returns:
         ----
         pathlib.Path: A Pathlib object representing the file location.
-        """        
+        """
 
         new_path = pathlib.Path(location)
 

@@ -6,6 +6,7 @@ from td.client import TDClient
 # Create a new session
 TDSession = TDClient(
     client_id='<CLIENT_ID>',
+    client_secret='<CLIENT_SECRET>',
     redirect_uri='<REDIRECT_URI>',
     credentials_path='<CREDENTIALS_PATH>'
 )
@@ -77,7 +78,7 @@ today_00 = datetime.now()
 # Define 300 days ago.
 today_ago = datetime.now() - timedelta(days=lookback_period)
 
-# The TD API expects a timestamp in milliseconds. However, the timestamp() 
+# The TD API expects a timestamp in milliseconds. However, the timestamp()
 # method only returns to seconds so multiply it by 1000.
 today_00 = str(int(round(today_00.timestamp() * 1000)))
 today_ago = str(int(round(today_ago.timestamp() * 1000)))

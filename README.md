@@ -105,6 +105,7 @@ from td.client import TDClient
 # Create a new session, credentials path is required.
 TDSession = TDClient(
     client_id='<CLIENT_ID>',
+    client_secret='<CLIENT_SECRET>',
     redirect_uri='<REDIRECT_URI>',
     credentials_path='<PATH_TO_CREDENTIALS_FILE>'
 )
