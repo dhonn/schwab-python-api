@@ -1206,6 +1206,25 @@ class TDClient():
         # return the response of the get request.
         return self._make_request(method='get', endpoint=endpoint, params=params)
 
+    def get_account_numbers(self) -> Dict:
+        """Queries hashed account numbers for a user.
+
+        Requests that require an account number will have to use encrypted account number.
+        This function provides all account numbers as well as encrypted account numbers.
+
+        ### Documentation:
+        ----
+        https://developer.schwab.com/products/trader-api--individual/details/specifications/Retail%20Trader%20API%20Production
+
+        ### Usage:
+        ----
+            >>> td_client.get_account_numbers()
+        """
+
+        endpoint = '/accounts/accountNumbers'
+
+        # return the response of the get request.
+        return self._make_request(method='get', endpoint=endpoint)
 
     def get_transactions(self, account: str = None, transaction_type: str = None, symbol: str = None,
                          start_date: str = None, end_date: str = None, transaction_id: str= None) -> Dict:
