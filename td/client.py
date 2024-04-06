@@ -52,7 +52,7 @@ class TDClient():
     from cache.
     """
 
-    def __init__(self, client_id: str, client_secret: str, redirect_uri: str, account_number: str = None, credentials_path: str = None,
+    def __init__(self, app_key: str, app_secret: str, redirect_uri: str, account_number: str = None, credentials_path: str = None,
                        auth_flow: str = 'default', _do_init: bool = True, _multiprocessing_safe = False) -> None:
         """Creates a new instance of the TDClient Object.
 
@@ -82,7 +82,8 @@ class TDClient():
         ----
             >>> # Credentials Path & Account Specified.
             >>> td_session = TDClient(
-                client_id='<CLIENT_ID>',
+                app_key='<APP_KEY>',
+                app_secret='<APP SECRET>'
                 redirect_uri='<REDIRECT_URI>',
                 account_number='<ACCOUNT_NUMBER>',
                 credentials_path='<CREDENTIALS_PATH>'
@@ -91,7 +92,8 @@ class TDClient():
             >>>
             >>> # Credentials Path & Account not Specified.
             >>> td_session = TDClient(
-                client_id='<CLIENT_ID>',
+                app_key='<APP_KEY>',
+                app_secret='<APP SECRET>'
                 redirect_uri='<REDIRECT_URI>'
             )
             >>> td_session.login()
@@ -127,8 +129,8 @@ class TDClient():
             })
 
         self.auth_flow = auth_flow
-        self.client_id = client_id
-        self.client_secret = client_secret
+        self.app_key = app_key
+        self.app_secret = app_secret
         self.redirect_uri = redirect_uri
         self.account_number = account_number
         self.refresh_token_expires_in = 60 * 60 * 24 * 7
@@ -138,7 +140,8 @@ class TDClient():
 
         if self.auth_flow == 'flask':
             self._flask_app = FlaskTDAuth(
-                client_id=self.client_id,
+                app_key=self.app_key,
+                app_secret=self.app_secret,
                 redirect_uri=self.redirect_uri,
                 credentials_file=self.credentials_path
             )
@@ -302,7 +305,7 @@ class TDClient():
         }
 
         # Encode the client credentials
-        credentials = f"{self.client_id}:{self.client_secret}"
+        credentials = f"{self.app_key}:{self.app_secret}"
         encoded_credentials = base64.b64encode(credentials.encode()).decode()
 
         # Modify the headers to include the Basic Authentication
@@ -342,7 +345,7 @@ class TDClient():
 
         # build the parameters of our request
         data = {
-            'client_id': self.client_id,
+            'client_id': self.app_key,
             'grant_type': 'refresh_token',
             'access_type': 'offline',
             'refresh_token': self.state['refresh_token']
@@ -370,7 +373,7 @@ class TDClient():
         # prepare the payload to login
         data = {
             'redirect_uri': self.redirect_uri,
-            'client_id': self.client_id
+            'client_id': self.app_key
         }
 
         # url encode the data.
@@ -426,13 +429,13 @@ class TDClient():
         # Define the parameters of our access token post.
         data = {
             'grant_type': 'authorization_code',
-            'client_id': self.client_id,
+            'client_id': self.app_key,
             'code': url_code,
             'redirect_uri': self.redirect_uri
         }
 
         # Encode the client credentials
-        credentials = f"{self.client_id}:{self.client_secret}"
+        credentials = f"{self.app_key}:{self.app_secret}"
         encoded_credentials = base64.b64encode(credentials.encode()).decode()
 
         # Modify the headers to include the Basic Authentication
@@ -2148,7 +2151,8 @@ class TDClient():
         ### Usage:
         ----
             >>> td_session = TDClient(
-                client_id='<CLIENT_ID>',
+                app_key='<APP_KEY>',
+                app_secret='<APP SECRET>'
                 redirect_uri='<REDIRECT_URI>',
                 credentials_path='<CREDENTIALS_PATH>'
             )

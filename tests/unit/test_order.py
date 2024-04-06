@@ -21,14 +21,16 @@ class TDSession(TestCase):
         config = ConfigParser()
         config.read('config/config.ini')
 
-        CLIENT_ID = config.get('main', 'CLIENT_ID')
+        APP_KEY = config.get('main', 'APP_KEY')
+        APP_SECRET = config.get('main', 'APP_SECRET')
         REDIRECT_URI = config.get('main', 'REDIRECT_URI')
         JSON_PATH = config.get('main', 'JSON_PATH')
         ACCOUNT_NUMBER = config.get('main', 'ACCOUNT_NUMBER')
 
         # Initalize the session.
         self.td_session = TDClient(
-            client_id=CLIENT_ID,
+            app_key=APP_KEY,
+            app_secret=APP_SECRET,
             redirect_uri=REDIRECT_URI,
             credentials_path=JSON_PATH,
             account_number=ACCOUNT_NUMBER

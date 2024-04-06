@@ -46,7 +46,8 @@ class TDStreamerClient():
         ----
 
             >>> td_session = TDClient(
-                client_id='<CLIENT_ID>',
+                app_key='<APP_KEY>',
+                app_secret='<APP_SECRET>',
                 redirect_uri='<REDIRECT_URI>',
                 credentials_path='<CREDENTIALS_PATH>'
             )
@@ -104,7 +105,8 @@ class TDStreamerClient():
         Usage:
         ----
             >>> td_session = TDClient(
-                client_id='<CLIENT_ID>',
+                app_key='<APP_KEY>',
+                app_secret='<APP_SECRET>',
                 redirect_uri='<REDIRECT_URI>',
                 credentials_path='<CREDENTIALS_PATH>'
             )
@@ -867,7 +869,8 @@ class TDStreamerClient():
         Usage:
         ----
             >>> td_session = TDClient(
-                client_id='<CLIENT_ID>',
+                app_key='<APP_KEY>',
+                app_secret='<APP_SECRET>',
                 redirect_uri='<REDIRECT_URI>',
                 credentials_path='<CREDENTIALS_PATH>'
             )
@@ -915,7 +918,8 @@ class TDStreamerClient():
         Usage:
         ----
             >>> td_session = TDClient(
-                client_id='<CLIENT_ID>',
+                app_key='<APP_KEY>',
+                app_secret='<APP_SECRET>',
                 redirect_uri='<REDIRECT_URI>',
                 credentials_path='<CREDENTIALS_PATH>'
             )

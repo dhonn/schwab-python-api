@@ -8,14 +8,16 @@ from configparser import ConfigParser
 config = ConfigParser()
 config.read('config/config.ini')
 
-CLIENT_ID = config.get('main', 'CLIENT_ID')
+APP_KEY = config.get('main', 'APP_KEY')
+APP_SECRET = config.get('main', 'APP_SECRET')
 REDIRECT_URI = config.get('main', 'REDIRECT_URI')
 JSON_PATH = config.get('main', 'JSON_PATH')
 ACCOUNT_NUMBER = config.get('main', 'ACCOUNT_NUMBER')
 
 # Create a new session
 TDSession = TDClient(
-    client_id=CLIENT_ID,
+    app_key=APP_KEY,
+    app_secret=APP_SECRET,
     redirect_uri=REDIRECT_URI,
     credentials_path=JSON_PATH,
     account_number=ACCOUNT_NUMBER
@@ -87,7 +89,7 @@ today_00 = datetime.now()
 # Define 300 days ago.
 today_ago = datetime.now() - timedelta(days=lookback_period)
 
-# The TD API expects a timestamp in milliseconds. However, the timestamp() 
+# The TD API expects a timestamp in milliseconds. However, the timestamp()
 # method only returns to seconds so multiply it by 1000.
 today_00 = str(int(round(today_00.timestamp() * 1000)))
 today_ago = str(int(round(today_ago.timestamp() * 1000)))

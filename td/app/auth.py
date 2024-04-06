@@ -14,10 +14,10 @@ from typing import Tuple
 
 class FlaskTDAuth():
 
-    def __init__(self, client_id: str, redirect_uri: str, credentials_file: pathlib.Path) -> None:
+    def __init__(self, app_key: str, app_secret: str, redirect_uri: str, credentials_file: pathlib.Path) -> None:
 
-        self.client_id: str = client_id
-        self.client_id_auth: str = client_id + '@AMER.OAUTHAP'
+        self.app_key: str = app_key
+        self.app_secret: str = app_secret
         self.redirect_uri: str = redirect_uri
         self.credentials_file: StatePath = credentials_file
         self.authorization_base_url = 'https://api.schwabapi.com/v1/oauth/authorize'
@@ -29,7 +29,7 @@ class FlaskTDAuth():
 
         # Create a new OAuth Session.
         td_ameritrade = OAuth2Session(
-            client_id=self.client_id_auth,
+            client_id=self.app_key,
             redirect_uri=self.redirect_uri
         )
 
@@ -65,7 +65,8 @@ class FlaskTDAuth():
 
         refresh_token_dict = self.td_ouath_session.refresh_token(
             token_url=self.token_url,
-            client_id=self.client_id,
+            app_key=self.app_key,
+            app_secret=self.app_secret,
             access_type='offline',
             refresh_token=self.access_token_dict['refresh_token']
         )

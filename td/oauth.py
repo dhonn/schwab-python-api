@@ -58,7 +58,7 @@ def callback():
 
     # Grab the Refresh and Access Token.
     token_dict = app.config['auth_client'].grab_access_token_and_refresh_token(url=request.url)
-    
+
     # Store it in the Session.
     session['oauth_token'] = token_dict
 
@@ -108,7 +108,7 @@ if __name__ == "__main__":
     config = ConfigParser()
     config.read('config/config.ini')
 
-    client_id = config.get('main', 'client_id')
+    app_key = config.get('main', 'app_key')
     redirect_uri = config.get('main', 'redirect_uri')
     credentials = config.get('main','json_path')
 
@@ -117,7 +117,7 @@ if __name__ == "__main__":
 
     # Define the App Configurations.
     app.config['auth_client'] = FlaskTDAuth(
-        client_id=client_id,
+        app_key=app_key,
         redirect_uri=redirect_uri,
         credentials_file=pathlib.Path(credentials)
     )
@@ -130,7 +130,7 @@ if __name__ == "__main__":
         debug=True
     )
 
-    # flask_td_app = FlaskAppTD(client_id=client_id, redirect_uri=redirect_uri, credentials_file=credentials)
+    # flask_td_app = FlaskAppTD(app_key=app_key, redirect_uri=redirect_uri, credentials_file=credentials)
     # flask_td_app.run()
     # This allows us to use a plain HTTP callback
     # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"

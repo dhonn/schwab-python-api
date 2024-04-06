@@ -4,7 +4,8 @@ from td.client import TDClient
 
 # Create a new session
 TDSession = TDClient(
-    client_id='<YOUR_CLIENT_ID>',
+    app_key='<YOUR_APP_KEY>',
+    app_secret='<YOUR_APP_SECRET>',
     redirect_uri='<YOUR_REDIRECT_URI>',
     credentials_path='<YOUR_CREDENTIALS_PATH>'
 )

@@ -11,14 +11,16 @@ with open(file=r"tests\unit\fields.jsonc", mode="r") as fields_file:
 config = ConfigParser()
 config.read('config/config.ini')
 
-CLIENT_ID = config.get('main', 'CLIENT_ID')
+APP_KEY = config.get('main', 'APP_KEY')
+APP_SECRET = config.get('main', 'APP_SECRET')
 REDIRECT_URI = config.get('main', 'REDIRECT_URI')
 JSON_PATH = config.get('main', 'JSON_PATH')
 ACCOUNT_NUMBER = config.get('main', 'ACCOUNT_NUMBER')
 
 # Create a new session
 TDSession = TDClient(
-    client_id=CLIENT_ID,
+    app_key=APP_KEY,
+    app_secret=APP_SECRET,
     redirect_uri=REDIRECT_URI,
     credentials_path=JSON_PATH
 )
@@ -31,7 +33,7 @@ TDStreamingClient = TDSession.create_streaming_session()
 
 # Set the data dump location
 TDStreamingClient.write_behavior(
-    file_path = "raw_data.csv", 
+    file_path = "raw_data.csv",
     append_mode = True
 )
 
@@ -120,7 +122,7 @@ TDStreamingClient.write_behavior(
 # # Level Two NASQDAQ
 # TDStreamingClient.level_two_nasdaq(symbols = ['MSFT'], fields = [0,1,2])
 
-# # Level Two Total View 
+# # Level Two Total View
 # TDStreamingClient.level_two_total_view(symbols = ['AAPL'], fields = [0,1,2])
 
 
