@@ -1,11 +1,10 @@
 # UPDATE
 
-This repo will soon be updated to include the new <https://github.com/areed1192/td-ameritrade-api>
-library. The master branch will be overwritten and the old code will need to be updated
-to reflect the new changes. If you would like to start rewriting your old code, please
-refer to the new branch merge-new-repo or go the link above.
+Currently in development, this project is a fork of the TD Ameritrade API, adapted for compatibility with the Schwab API.
+Supports trading, historical and real-time data streaming.
+Documentation is slowly being updated.
 
-## Unofficial TD Ameritrade Python API Library
+## Unofficial Charles Schwab API Library
 
 ## Table of Contents
 
@@ -22,13 +21,13 @@ refer to the new branch merge-new-repo or go the link above.
 
 ## Overview
 
-Current Version: **0.3.5**
+Current Version: **0.0.2**
 
-The unofficial Python API client library for TD Ameritrade allows individuals with
-TD Ameritrade accounts to manage trades, pull historical and real-time data, manage
+The unofficial Python API client library for Charles Schwab allows individuals with
+Charles Schwab accounts to manage trades, pull historical and real-time data, manage
 their accounts, create and modify orders all using the Python programming language.
 
-To learn more about the TD Ameritrade API, please refer to
+To learn more about the Charles Schwab API, please refer to
 the [official documentation](https://developer.tdameritrade.com/apis).
 
 ## What's in the API
@@ -49,23 +48,23 @@ the [official documentation](https://developer.tdameritrade.com/apis).
 
 The following requirements must be met to use this API:
 
-- A TD Ameritrade account, you'll need your account password and account number to use the API.
-- A TD Ameritrade Developer Account
-- A TD Ameritrade Developer API Key
+- A Charles Schwab account, you'll need your account password and account number to use the API.
+- A Charles Schwab Developer Account
+- A Charles Schwab Developer API Key
 - A Consumer ID
 - A Redirect URI, sometimes called Redirect URL
 - Python 3.7 or later.
 
 ## API Key and Credentials
 
-Each TD Ameritrade API request requires a TD Ameritrade Developer API Key, a consumer ID,
+Each Charles Schwab API request requires a Charles Schwab Developer API Key, a consumer ID,
 an account password, an account number, and a redirect URI. API Keys, consumer IDs, and
-redirect URIs are generated from the TD Ameritrade developer portal. To set up and create
-your TD Ameritrade developer account, please refer to
-the [official documentation](https://developer.tdameritrade.com/content/phase-1-authentication-update-xml-based-api).
+redirect URIs are generated from the Charles Schwab developer portal. To set up and create
+your Charles Schwab developer account, please refer to
+the [official documentation](https://developer.schwab.com/user-guides).
 
 Additionally, to authenticate yourself using this library, you will need to provide your
-account number and password for your main TD Ameritrade account.
+account number and password for your main Charles Schwab account.
 
 **Important:** Your account number, an account password, consumer ID, and API key should
 be kept secret.
@@ -73,16 +72,16 @@ be kept secret.
 ## Installation
 
 The project can be found at PyPI, if you'd like to view the project please use
-this [link](https://pypi.org/project/td-ameritrade-python-api/).
+this [link](https://pypi.org/project/schwab-python-api/.
 
 ```bash
-pip install td-ameritrade-python-api
+pip install schwab-python-api
 ```
 
 To upgrade the library run the following command:
 
 ```bash
-pip install --upgrade td-ameritrade-python-api
+pip install --upgrade schwab-python-api
 ```
 
 ## Usage
@@ -118,6 +117,15 @@ msft_quotes = TDSession.get_quotes(instruments=['MSFT'])
 
 # Grab real-time quotes for 'AMZN' (Amazon) and 'SQ' (Square)
 multiple_quotes = TDSession.get_quotes(instruments=['AMZN','SQ'])
+
+# Create a streaming sesion
+TDStreamingClient = TDSession.create_streaming_session()
+
+# Live stream quotes
+TDStreamingClient.level_one_quotes(
+    symbols=['SPY'],
+    fields=[0,1,2,3,4,5,6,8,9,10,11,12,16,17,18,19,20,33,35,39,40,41,42]
+)
 ```
 
 ## Features
@@ -142,25 +150,25 @@ request when possible.
 
 ### Library Requirements
 
-The following requirements must be met before being able to use the TD Ameritrade Python API library.
+The following requirements must be met before being able to use the Charles Schwab Python API library.
 
-- You must have a TD Ameritrade Account.
-- You must have a TD Ameritrade Developer Account. Please go to following [folder](https://github.com/areed1192/td-ameritrade-python-api/tree/master/samples/resources)
+- You must have a Charles Schwab Account.
+- You must have a Charles Schwab Developer Account. Please go to following [folder](https://github.com/dhonn/schwab-python-api/tree/master/samples/resources)
   for instructions on how to create a Developer account.
 
 ## Documentation and Resources
 
 ### Official API Documentation
 
-- [Getting Started](https://developer.tdameritrade.com/content/phase-1-authentication-update-xml-based-api)
-- [Endpoints](https://developer.tdameritrade.com/apis)
-- [Guides](https://developer.tdameritrade.com/guides)
+- [Getting Started](https://developer.schwab.com/products/trader-api--individual/details/documentation/Retail%20Trader%20API%20Production)
+- [Endpoints](https://developer.schwab.com/products/trader-api--individual/details/specifications/Retail%20Trader%20API%20Production)
+- [Guides](https://developer.schwab.com/user-guides)
 - [Samples - Price History](https://developer.tdameritrade.com/content/price-history-samples)
 - [Samples - Place Order](https://developer.tdameritrade.com/content/place-order-samples)
 
 ### Unofficial Documentation
 
-- [TD Ameritrade API - YouTube](https://www.youtube.com/playlist?list=PLcFcktZ0wnNnKvxFkJ5B7pvGaGa81Ny-6)
+- [Charles Schwab API - YouTube](https://www.youtube.com/playlist?list=PLcFcktZ0wnNnKvxFkJ5B7pvGaGa81Ny-6)
 
 ## Support these Projects
 
@@ -182,7 +190,7 @@ If you have a project, you think I can help you with feel free to reach out at [
 While in Visual Studio Code, right click anywhere in the code editor while in the file that contains your code.
 The following dropdown will appear:
 
-![Terminal Dropdown](https://raw.githubusercontent.com/areed1192/td-ameritrade-python-api/master/samples/instructions/photos/terminal_dropdown.jpg "Terminal Dropdown")
+![Terminal Dropdown](https://raw.githubusercontent.com/dhonn/schwab-python-api/master/samples/instructions/photos/terminal_dropdown.jpg "Terminal Dropdown")
 
 From the dropdown, click `Run Python file in Terminal`, this will start the python script.
 
@@ -192,7 +200,7 @@ The TD Library will automatically generate the redirect URL that will navigate y
 you authentication. You can either copy the link and paste it into a browser manually or if you're using Visual
 Studio Code you can press `CTRL + Click` to have Visual Studio Code navigate you to the URL immeditately.
 
-![Redirect URI](https://raw.githubusercontent.com/areed1192/td-ameritrade-python-api/master/samples/instructions/photos/redirect_uri.jpg "Redirect URI")
+![Redirect URI](https://raw.githubusercontent.com/dhonn/schwab-python-api/master/samples/instructions/photos/redirect_uri.jpg "Redirect URI")
 
 **Step 3 - Login to the TD API:**
 
@@ -200,13 +208,13 @@ Once you've arrived at the login screen, you'll need to provide your credentials
 Please provide your Account Username and Account Password in the userform and then press enter. As a reminder
 these, are the same username/password combination you use to login to your regular TD Account.
 
-!["TD Login](https://raw.githubusercontent.com/areed1192/td-ameritrade-python-api/master/samples/instructions/photos/td_login.jpg "TD Login")
+!["TD Login](https://raw.githubusercontent.com/dhonn/schwab-python-api/master/samples/instructions/photos/td_login.jpg "TD Login")
 
 **Step 4 - Accept the Terms:**
 
 Accept the Terms of the API by clicking `Allow`, this will redirect you.
 
-![TD Terms](https://raw.githubusercontent.com/areed1192/td-ameritrade-python-api/master/samples/instructions/photos/td_terms.jpg "TD Terms")
+![TD Terms](https://raw.githubusercontent.com/dhonn/schwab-python-api/master/samples/instructions/photos/td_terms.jpg "TD Terms")
 
 **Step 5 - Copy the Authorization Code:**
 
@@ -214,7 +222,7 @@ After accepting the terms, you'll be taken to the URL that you provided as your 
 the end of that URL will be `authorization code`. To complete the authentication workflow, copy the URL as
 it appears below. Don't worry if the numbers don't match, as you will have a different code.
 
-![Auth Code](https://raw.githubusercontent.com/areed1192/td-ameritrade-python-api/master/samples/instructions/photos/auth_code.jpg "Auth Code")
+![Auth Code](https://raw.githubusercontent.com/dhonn/schwab-python-api/master/samples/instructions/photos/auth_code.jpg "Auth Code")
 
 **Step 6 - Paste the Authorization Code in the Terminal:**
 
@@ -223,7 +231,7 @@ will complete and the script will start running. At this stage, we are exchangin
 an access token. That access token is valid only for 30 minutes. However, a refresh token is also stored that
 will refresh your access token when it expires.
 
-![Paste URL](https://raw.githubusercontent.com/areed1192/td-ameritrade-python-api/master/samples/instructions/photos/paste_url.jpg "Paste URL")
+![Paste URL](https://raw.githubusercontent.com/dhonn/schwab-python-api/master/samples/instructions/photos/paste_url.jpg "Paste URL")
 
 After, that the script should run. Additionally, if you go to the location you specified in the `credentials_path`
 arugment you will now see `td_state.json` file. This file contains all the info used during a session. Please
