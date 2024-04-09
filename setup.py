@@ -7,20 +7,20 @@ with open(file="README.md", mode="r") as fh:
 
 setup(
     # this will be my Library name.
-    name='td-ameritrade-python-api',
+    name='schwab-python-api',
 
     # Want to make sure people know who made it.
-    author='Alex Reed',
+    author='Dhonn Lushine',
 
     # also an email they can use to reach out.
-    author_email='coding.sigma@gmail.com',
+    author_email='dhonn@yahoo.com',
 
     # Set the version.
-    version='0.3.5',
+    version='0.0.2',
 
     # here is a simple description of the library, this will appear when
     # someone searches for the library on https://pypi.org/search
-    description='A python client lirbary for the TD Ameritrade API.',
+    description='A python client lirbary for the Schwab API.',
 
     # I have a long description but that will just be my README file, note the
     # variable up above where I read the file.
@@ -30,7 +30,7 @@ setup(
     long_description_content_type="text/markdown",
 
     # here is the URL you can find the code, this is just the GitHub URL.
-    url='https://github.com/areed1192/td-ameritrade-python-api',
+    url='https://github.com/dhonn/schwab-python-api',
 
     # there are some dependencies to use the library, so let's list them out.
     install_requires=[
@@ -38,11 +38,13 @@ setup(
         'requests',
         'flask',
         'requests-oauthlib',
-        'pyopenssl'
+        'pyopenssl',
+        'portalocker',
+        'python-dotenv'
     ],
 
     # some keywords for my library.
-    keywords='finance, td ameritrade, api',
+    keywords='finance, schwab, api',
 
     # here are the packages I want "build."
     packages=find_packages(
