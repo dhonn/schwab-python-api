@@ -7,6 +7,7 @@ import pathlib
 import requests
 import urllib.parse
 import base64
+import portalocker
 
 from typing import Any
 from typing import Dict
@@ -461,6 +462,70 @@ class TDClient():
             return True
 
     def validate_token(self, already_updated_from_cache=False) -> bool:
+        file_path = str(self.credentials_path) + ".lock"
+
+        if self._expired_token():
+            with open(file_path, "a+") as file:
+                portalocker.lock(file, portalocker.LOCK_EX)
+
+                # Reload credentials in case another process has updated it.
+                with open(file=self.credentials_path, mode='r') as json_file:
+                    self.state.update(json.load(json_file))
+
+                return self._validate_token(already_updated_from_cache=already_updated_from_cache)
+            return False
+
+        return True
+
+    def _expired_token(self, already_updated_from_cache=False) -> bool:
+        """Validates whether the tokens are valid or not.
+
+        ### Returns
+        -------
+        bool
+            Returns `True` if the tokens were valid, `False` if
+            the credentials file doesn't exist.
+        """
+
+        if 'refresh_token_expires_at' in self.state and 'access_token_expires_at' in self.state:
+
+            # Grab the Expire Times.
+            refresh_token_exp = self.state['refresh_token_expires_at']
+            access_token_exp = self.state['access_token_expires_at']
+
+            refresh_token_ts = datetime.datetime.fromtimestamp(refresh_token_exp)
+            access_token_ts = datetime.datetime.fromtimestamp(access_token_exp)
+
+            # Grab the Expire Thresholds.
+            refresh_token_exp_threshold = refresh_token_ts - timedelta(days=1)
+            access_token_exp_threshold = access_token_ts - timedelta(minutes=5)
+
+            # Convert to Seconds.
+            refresh_token_exp_threshold = refresh_token_exp_threshold.timestamp()
+            access_token_exp_threshold = access_token_exp_threshold.timestamp()
+
+            # See if we need a new Refresh Token.
+            if datetime.datetime.now().timestamp() > refresh_token_exp_threshold:
+                return True
+
+            # See if we need a new Access Token.
+            if datetime.datetime.now().timestamp() > access_token_exp_threshold:
+                return True
+
+            return False
+
+        else:
+
+            pprint.pprint(
+                {
+                    "credential_path": str(self.credentials_path),
+                    "message": "The credential file does not contain expiration times for your tokens, please go through the oAuth process."
+                }
+            )
+
+            return False
+
+    def _validate_token(self, already_updated_from_cache=False) -> bool:
         """Validates whether the tokens are valid or not.
 
         ### Returns

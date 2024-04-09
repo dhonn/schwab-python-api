@@ -4,3 +4,4 @@ websockets==9.1
 Flask==1.0.2
 pyOpenSSL==20.0.0
 portalocker==2.8.2
+python-dotenv==1.0.1
