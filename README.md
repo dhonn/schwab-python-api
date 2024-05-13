@@ -118,6 +118,26 @@ msft_quotes = TDSession.get_quotes(instruments=['MSFT'])
 # Grab real-time quotes for 'AMZN' (Amazon) and 'SQ' (Square)
 multiple_quotes = TDSession.get_quotes(instruments=['AMZN','SQ'])
 
+# Make a historical data request for daily bars for the last year
+historical_data = TDSession.get_price_history(
+    symbol='SPY',
+    period_type='year',
+    period=1,
+    frequency_type='daily',
+    frequency=1,
+    extended_hours=False
+)
+
+# Make a historical data request for 1-minute bars for 1 day
+historical_data = TDSession.get_price_history(
+    symbol='SPY',
+    period_type='day',
+    period=1,
+    frequency_type='minute',
+    frequency=1,
+    extended_hours=False
+)
+
 # Create a streaming sesion
 TDStreamingClient = TDSession.create_streaming_session()
 
@@ -126,6 +146,21 @@ TDStreamingClient.level_one_quotes(
     symbols=['SPY'],
     fields=[0,1,2,3,4,5,6,8,9,10,11,12,16,17,18,19,20,33,35,39,40,41,42]
 )
+
+# Live stream level 2 quotes
+TDStreamingClient.level_two_nasdaq(
+    symbols=['SPY'],
+    fields=[0,1,2]
+)
+
+# Stream one minute candles
+TDStreamingClient.chart(
+    service='CHART_EQUITY',
+    symbols=['SPY'],
+    fields=[0, 1, 2, 3, 4, 5, 6, 7]
+)
+
+TDStreamingClient.stream();
 ```
 
 ## Features
